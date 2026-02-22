@@ -1,10 +1,14 @@
+import os
+import sqlite3
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from database import get_db_connection, init_db
 
 app = Flask(__name__)
-app.secret_key = "supersecretkey"
+app.secret_key = os.environ.get("SECRET_KEY", "supersecretkey")
 
-init_db()
+# Initialize database only once
+if not os.path.exists("students.db"):
+    init_db()
 
 # -------------------------
 # LOGIN
