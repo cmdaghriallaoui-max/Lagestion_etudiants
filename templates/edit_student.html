@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Modifier Étudiant</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body>
+
+<div class="sidebar">
+    <h2>MyApp</h2>
+    <ul>
+        <li>👤 {{ session['user'] }}</li>
+        <li>🎓 Gestion Étudiants</li>
+    </ul>
+</div>
+
+<div class="main">
+
+    <div class="header">
+        <h1>Modifier Étudiant</h1>
+        <a href="{{ url_for('dashboard') }}">
+            <button class="logout">Retour</button>
+        </a>
+    </div>
+
+    <div class="edit-section">
+        <h3>Modifier les informations de l'étudiant</h3>
+        <form method="POST">
+            <label>Nom:</label>
+            <input type="text" name="nom" value="{{ student['nom'] }}" required>
+
+            <label>Prénom:</label>
+            <input type="text" name="prenom" value="{{ student['prenom'] }}" required>
+
+            <label>Email:</label>
+            <input type="email" name="email" value="{{ student['email'] }}" required>
+            <label>Mot de passe (laisser vide si inchangé):</label>
+            <input type="password" name="password" placeholder="Nouveau mot de passe">
+            <label>Adresse:</label>
+            <input type="text" name="adresse" value="{{ student['adresse'] }}" required>
+
+            <label>Année:</label>
+            <select name="annee" required>
+                <option value="1CP" {% if student['annee']=="1CP" %}selected{% endif %}>1 Cycle Prépa</option>
+                <option value="2CP" {% if student['annee']=="2CP" %}selected{% endif %}>2 Cycle Prépa</option>
+                <option value="1CI" {% if student['annee']=="1CI" %}selected{% endif %}>1 Cycle Ingé</option>
+                <option value="2CI" {% if student['annee']=="2CI" %}selected{% endif %}>2 Cycle Ingé</option>
+                <option value="3CI" {% if student['annee']=="3CI" %}selected{% endif %}>3 Cycle Ingé</option>
+            </select>
+
+            <div class="form-actions">
+                <button type="submit" class="save-btn">Enregistrer</button>
+                <a href="{{ url_for('dashboard') }}">
+                    <button type="button" class="cancel-btn">Annuler</button>
+                </a>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+</body>
+</html>

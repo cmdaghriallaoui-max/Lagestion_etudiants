@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <title>Register Student</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='dashboard.css') }}">
+</head>
+<body style="justify-content:center; align-items:center; display:flex; height:100vh; background:#f4f6f9;">
+
+<div class="add-section" style="width:450px;">
+
+    <h2>Créer un Étudiant</h2>
+
+    {% with messages = get_flashed_messages(with_categories=true) %}
+      {% if messages %}
+        {% for category, message in messages %}
+            <p class="{{ category }}">{{ message }}</p>
+        {% endfor %}
+      {% endif %}
+    {% endwith %}
+
+    <form method="POST">
+
+        <input type="text" name="nom" placeholder="Nom" required>
+        <input type="text" name="prenom" placeholder="Prénom" required>
+
+        <input type="email" name="email" placeholder="Email (@esisa.com)" required>
+
+        <input type="password" name="password" placeholder="Mot de passe" required>
+
+        <input type="text" name="adresse" placeholder="Adresse" required>
+
+        <select name="annee" required>
+            <option value="">Choisir une année</option>
+            <option value="1CP">1 Cycle Prépa</option>
+            <option value="2CP">2 Cycle Prépa</option>
+            <option value="1CI">1 Cycle Ingé</option>
+            <option value="2CI">2 Cycle Ingé</option>
+            <option value="3CI">3 Cycle Ingé</option>
+        </select>
+
+        <br><br>
+        <button type="submit">Créer</button>
+    </form>
+
+    <br>
+    <a href="{{ url_for('login') }}">⬅ Retour au Login</a>
+
+</div>
+
+</body>
+</html>
