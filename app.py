@@ -59,8 +59,12 @@ def register():
                 VALUES (?, ?, ?, ?, ?, ?)
             """, (nom, prenom, email, password, adresse, annee))
             conn.commit()
-        except:
+        except sqlite3.IntegrityError:
             flash("Email déjà utilisé", "error")
+            conn.close()
+            return redirect(url_for('register'))
+        except Exception as e:
+            flash(f"Erreur: {str(e)}", "error")
             conn.close()
             return redirect(url_for('register'))
 
@@ -148,8 +152,6 @@ def edit_student(id):
 
     conn.close()
     return render_template("edit_student.html", student=student)
-
-    return redirect(url_for('dashboard'))
 
 
 # -------------------------
